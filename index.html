@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Croma Store</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111;
+color:white;
+}
+
+header{
+background:#000;
+padding:15px;
+text-align:center;
+border-bottom:2px solid #00ff84;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-size:32px;
+font-weight:bold;
+color:#00ff84;
+}
+
+.container{
+padding:20px;
+display:flex;
+justify-content:center;
+}
+
+.card{
+width:100%;
+max-width:380px;
+background:#1c1c1c;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 0 20px rgba(0,255,132,0.2);
+}
+
+.card img{
+width:100%;
+height:320px;
+object-fit:cover;
+background:white;
+}
+
+.details{
+padding:18px;
+}
+
+.title{
+font-size:24px;
+font-weight:bold;
+line-height:1.4;
+}
+
+.rating{
+margin-top:10px;
+color:gold;
+font-size:18px;
+}
+
+.price{
+margin-top:15px;
+font-size:34px;
+font-weight:bold;
+color:#00ff84;
+}
+
+.old{
+font-size:18px;
+color:gray;
+text-decoration:line-through;
+margin-left:8px;
+}
+
+.offer{
+margin-top:10px;
+display:inline-block;
+background:#00ff84;
+color:black;
+padding:6px 12px;
+border-radius:20px;
+font-size:14px;
+font-weight:bold;
+}
+
+.features{
+margin-top:18px;
+line-height:2;
+font-size:15px;
+color:#ccc;
+}
+
+.buy-btn{
+width:100%;
+padding:15px;
+margin-top:22px;
+border:none;
+border-radius:10px;
+background:#00ff84;
+color:black;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:999;
+}
+
+.popup-box{
+background:#1c1c1c;
+width:100%;
+max-width:370px;
+padding:22px;
+border-radius:18px;
+animation:pop 0.3s ease;
+}
+
+@keyframes pop{
+from{
+transform:scale(0.7);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.popup-box h2{
+text-align:center;
+margin-bottom:15px;
+color:#00ff84;
+}
+
+input,textarea{
+width:100%;
+padding:13px;
+margin-top:12px;
+border:none;
+border-radius:8px;
+font-size:15px;
+background:#2a2a2a;
+color:white;
+}
+
+.pay-btn{
+width:100%;
+padding:15px;
+margin-top:18px;
+border:none;
+border-radius:10px;
+background:#00ff84;
+color:black;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+text-align:center;
+display:block;
+text-decoration:none;
+}
+
+.close-btn{
+width:100%;
+padding:13px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+background:red;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+.note{
+margin-top:15px;
+text-align:center;
+font-size:13px;
+color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">croma</div>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop">
+
+<div class="details">
+
+<div class="title">
+Redmi Note 13 5G
+</div>
+
+<div class="rating">
+★★★★★ (4.7)
+</div>
+
+<div class="price">
+₹1,999
+<span class="old">₹18,999</span>
+</div>
+
+<div class="offer">
+89% OFF
+</div>
+
+<div class="features">
+• 8GB RAM + 128GB Storage <br>
+• 108MP Camera <br>
+• AMOLED Display <br>
+• 5000mAh Battery
+</div>
+
+<button class="buy-btn" onclick="openPopup()">
+Buy Now
+</button>
+
+</div>
+</div>
+</div>
+
+<div class="popup" id="popup">
+
+<div class="popup-box">
+
+<h2>Checkout</h2>
+
+<input type="text" id="name" placeholder="Full Name">
+
+<input type="text" id="phone" placeholder="Phone Number">
+
+<textarea id="address" placeholder="Delivery Address"></textarea>
+
+<a id="payBtn" class="pay-btn">
+Pay ₹1,999
+</a>
+
+<button class="close-btn" onclick="closePopup()">
+Close
+</button>
+
+<div class="note">
+100% Secure UPI Payment
+</div>
+
+</div>
+</div>
+
+<script>
+
+// =========================
+// APNI UPI ID YAHA DALO
+// =========================
+
+const upiID = "YOURUPI@upi";
+
+
+// =========================
+
+function openPopup(){
+
+document.getElementById("popup").style.display = "flex";
+
+}
+
+function closePopup(){
+
+document.getElementById("popup").style.display = "none";
+
+}
+
+
+// =========================
+// PAYMENT BUTTON
+// =========================
+
+document.getElementById("payBtn")
+.addEventListener("click", function(){
+
+let name =
+document.getElementById("name").value || "Customer";
+
+let upiLink =
+`upi://pay?pa=${upiID}&pn=${name}&am=1999&cu=INR`;
+
+window.location.href = upiLink;
+
+});
+
+</script>
+
+</body>
+</html>
