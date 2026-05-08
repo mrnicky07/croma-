@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Croma Store</title>
+<title>Croma Online Store</title>
 
 <style>
 
@@ -15,46 +15,83 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#111;
+background:#0f0f0f;
 color:white;
 }
 
+/* HEADER */
+
 header{
 background:#000;
-padding:15px;
-text-align:center;
-border-bottom:2px solid #00ff84;
+padding:14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 position:sticky;
 top:0;
 z-index:100;
+border-bottom:2px solid #00ff84;
 }
 
 .logo{
-font-size:32px;
+font-size:30px;
 font-weight:bold;
 color:#00ff84;
 }
 
+.cart-icon{
+font-size:24px;
+position:relative;
+cursor:pointer;
+}
+
+.cart-count{
+position:absolute;
+top:-8px;
+right:-10px;
+background:red;
+width:20px;
+height:20px;
+border-radius:50%;
+font-size:12px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* PRODUCT */
+
 .container{
-padding:20px;
+padding:18px;
 display:flex;
 justify-content:center;
 }
 
 .card{
 width:100%;
-max-width:380px;
-background:#1c1c1c;
-border-radius:18px;
+max-width:390px;
+background:#1b1b1b;
+border-radius:20px;
 overflow:hidden;
-box-shadow:0 0 20px rgba(0,255,132,0.2);
+box-shadow:0 0 25px rgba(0,255,132,0.15);
+animation:fade 0.5s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .card img{
 width:100%;
 height:320px;
 object-fit:cover;
-background:white;
 }
 
 .details{
@@ -69,8 +106,8 @@ line-height:1.4;
 
 .rating{
 margin-top:10px;
-color:gold;
 font-size:18px;
+color:gold;
 }
 
 .price{
@@ -87,8 +124,28 @@ text-decoration:line-through;
 margin-left:8px;
 }
 
+.stock{
+margin-top:12px;
+color:#ff4747;
+font-weight:bold;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{
+opacity:0.4;
+}
+}
+
+.features{
+margin-top:18px;
+line-height:2;
+color:#ccc;
+font-size:15px;
+}
+
 .offer{
-margin-top:10px;
+margin-top:12px;
 display:inline-block;
 background:#00ff84;
 color:black;
@@ -98,110 +155,122 @@ font-size:14px;
 font-weight:bold;
 }
 
-.features{
-margin-top:18px;
-line-height:2;
-font-size:15px;
-color:#ccc;
-}
-
-.buy-btn{
+button{
 width:100%;
 padding:15px;
-margin-top:22px;
+margin-top:20px;
 border:none;
-border-radius:10px;
+border-radius:12px;
 background:#00ff84;
 color:black;
 font-size:18px;
 font-weight:bold;
 cursor:pointer;
+transition:0.3s;
 }
 
-.popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
+button:active{
+transform:scale(0.96);
+}
+
+/* CART PAGE */
+
+.cart-page{
 display:none;
-justify-content:center;
-align-items:center;
-padding:20px;
-z-index:999;
+padding:18px;
 }
 
-.popup-box{
-background:#1c1c1c;
-width:100%;
-max-width:370px;
+.cart-box{
+background:#1b1b1b;
 padding:22px;
 border-radius:18px;
-animation:pop 0.3s ease;
+max-width:420px;
+margin:auto;
+animation:fade 0.4s ease;
 }
 
-@keyframes pop{
-from{
-transform:scale(0.7);
-opacity:0;
-}
-to{
-transform:scale(1);
-opacity:1;
-}
-}
-
-.popup-box h2{
+.cart-title{
+font-size:28px;
+margin-bottom:20px;
 text-align:center;
-margin-bottom:15px;
 color:#00ff84;
 }
 
 input,textarea{
 width:100%;
-padding:13px;
+padding:14px;
 margin-top:12px;
 border:none;
-border-radius:8px;
-font-size:15px;
+border-radius:10px;
 background:#2a2a2a;
 color:white;
+font-size:15px;
 }
 
-.pay-btn{
-width:100%;
-padding:15px;
+.summary{
 margin-top:18px;
-border:none;
-border-radius:10px;
-background:#00ff84;
-color:black;
-font-size:18px;
+padding:15px;
+background:#222;
+border-radius:12px;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+font-size:16px;
+}
+
+.total{
+font-size:30px;
 font-weight:bold;
+color:#00ff84;
+text-align:center;
+margin-top:18px;
+}
+
+.coupon{
+margin-top:18px;
+padding:14px;
+background:#222;
+border:1px dashed #00ff84;
+border-radius:12px;
 cursor:pointer;
 text-align:center;
-display:block;
-text-decoration:none;
+font-weight:bold;
 }
 
-.close-btn{
-width:100%;
-padding:13px;
-margin-top:10px;
-border:none;
-border-radius:10px;
-background:red;
-color:white;
-font-size:16px;
-cursor:pointer;
+.success{
+display:none;
+margin-top:12px;
+text-align:center;
+color:gold;
+font-weight:bold;
 }
 
-.note{
+.payment-icons{
+margin-top:15px;
+display:flex;
+justify-content:center;
+gap:12px;
+font-size:14px;
+color:#ccc;
+}
+
+.fake-orders{
 margin-top:15px;
 text-align:center;
-font-size:13px;
-color:#aaa;
+color:#00ff84;
+font-size:14px;
+animation:blink 2s infinite;
+}
+
+.loader{
+display:none;
+margin-top:15px;
+text-align:center;
+color:#00ff84;
+font-weight:bold;
 }
 
 </style>
@@ -210,10 +279,21 @@ color:#aaa;
 <body>
 
 <header>
-<div class="logo">croma</div>
+
+<div class="logo">
+croma
+</div>
+
+<div class="cart-icon">
+🛒
+<div class="cart-count" id="cartCount">0</div>
+</div>
+
 </header>
 
-<div class="container">
+<!-- PRODUCT -->
+
+<div class="container" id="productPage">
 
 <div class="card">
 
@@ -226,16 +306,20 @@ Redmi Note 13 5G
 </div>
 
 <div class="rating">
-★★★★★ (4.7)
+★★★★★ (4.8)
 </div>
 
 <div class="price">
-₹1,999
-<span class="old">₹18,999</span>
+₹18,999
+<span class="old">₹24,999</span>
 </div>
 
 <div class="offer">
-89% OFF
+Extra ₹17,000 Off With Coupon
+</div>
+
+<div class="stock">
+🔥 Only 2 Left In Stock
 </div>
 
 <div class="features">
@@ -245,19 +329,27 @@ Redmi Note 13 5G
 • 5000mAh Battery
 </div>
 
-<button class="buy-btn" onclick="openPopup()">
-Buy Now
+<button onclick="addToCart()">
+Add To Cart
 </button>
 
+<div class="fake-orders">
+Rohit from Delhi purchased this 5 mins ago
+</div>
+
 </div>
 </div>
 </div>
 
-<div class="popup" id="popup">
+<!-- CART -->
 
-<div class="popup-box">
+<div class="cart-page" id="cartPage">
 
-<h2>Checkout</h2>
+<div class="cart-box">
+
+<div class="cart-title">
+Checkout
+</div>
 
 <input type="text" id="name" placeholder="Full Name">
 
@@ -265,16 +357,49 @@ Buy Now
 
 <textarea id="address" placeholder="Delivery Address"></textarea>
 
-<a id="payBtn" class="pay-btn">
-Pay ₹1,999
-</a>
+<div class="coupon" onclick="applyCoupon()">
 
-<button class="close-btn" onclick="closePopup()">
-Close
+🔥 TAP TO APPLY COUPON: CROMA90
+
+</div>
+
+<div class="success" id="successText">
+Coupon Applied Successfully 🎉
+</div>
+
+<div class="summary">
+
+<div class="row">
+<span>Product Price</span>
+<span>₹18,999</span>
+</div>
+
+<div class="row">
+<span>Delivery</span>
+<span>FREE</span>
+</div>
+
+<div class="row">
+<span>Discount</span>
+<span id="discountPrice">- ₹0</span>
+</div>
+
+</div>
+
+<div class="total" id="totalPrice">
+₹18,999
+</div>
+
+<button onclick="payNow()">
+Proceed To Pay
 </button>
 
-<div class="note">
-100% Secure UPI Payment
+<div class="loader" id="loader">
+Connecting To Secure Payment...
+</div>
+
+<div class="payment-icons">
+PhonePe • GPay • Paytm • BHIM
 </div>
 
 </div>
@@ -282,44 +407,77 @@ Close
 
 <script>
 
-// =========================
+let finalPrice = 18999;
+
+// ========================
 // APNI UPI ID YAHA DALO
-// =========================
+// ========================
 
 const upiID = "YOURUPI@upi";
 
 
-// =========================
+// ========================
 
-function openPopup(){
+function addToCart(){
 
-document.getElementById("popup").style.display = "flex";
+document.getElementById("cartCount")
+.innerHTML = "1";
+
+setTimeout(()=>{
+
+document.getElementById("productPage")
+.style.display = "none";
+
+document.getElementById("cartPage")
+.style.display = "block";
+
+},500);
 
 }
 
-function closePopup(){
 
-document.getElementById("popup").style.display = "none";
+// ========================
+// COUPON
+// ========================
+
+function applyCoupon(){
+
+finalPrice = 1999;
+
+document.getElementById("discountPrice")
+.innerHTML = "- ₹17,000";
+
+document.getElementById("totalPrice")
+.innerHTML = "₹1,999";
+
+document.getElementById("successText")
+.style.display = "block";
 
 }
 
 
-// =========================
-// PAYMENT BUTTON
-// =========================
+// ========================
+// PAYMENT
+// ========================
 
-document.getElementById("payBtn")
-.addEventListener("click", function(){
+function payNow(){
+
+document.getElementById("loader")
+.style.display = "block";
 
 let name =
 document.getElementById("name").value || "Customer";
 
+setTimeout(()=>{
+
 let upiLink =
-`upi://pay?pa=${upiID}&pn=${name}&am=1999&cu=INR`;
+`upi://pay?pa=${upiID}&pn=${name}&am=${finalPrice}&cu=INR`;
 
 window.location.href = upiLink;
 
-});
+},2000);
+
+}
 
 </script>
 
